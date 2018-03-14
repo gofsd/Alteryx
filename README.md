@@ -14,8 +14,8 @@
     2  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
     3  nvm install 8.10.0
 <h2> deploy test example with RabbitMQ and Node.Js<h2>
-   1 cd alteryx_test
-   2 npm i --save
-   3 cd src
-   4 ./receive
-   5 ./send test@email.com "message subject" "mail body"
+   1 cd alteryx_test<br>
+   2 npm i --save<br>
+   3 cd src<br>
+   4 ./receive<br>
+   5 ./send test@email.com "message subject" "mail body"<br>
