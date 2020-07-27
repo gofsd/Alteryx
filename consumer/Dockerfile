@@ -9,6 +9,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 RUN npm install -g nodemon
+RUN npm install
 # Если вы создаете сборку для продакшн
 # RUN npm ci --only=production
 
