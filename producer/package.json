@@ -1,0 +1,28 @@
+{
+  "name": "producer",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "dist ./src/index.ts",
+    "compile": "tsc && node ./dist/index.js",
+    "start:dev": "ts-node ./src/index.ts",
+    "typeorm:cli": "ts-node ./node_modules/typeorm/cli -f ormconfig.js",
+    "migration:generate": "npm run typeorm:cli -- migration:generate -n",
+    "migration:create": "npm run typeorm:cli -- migration:create -n",
+    "migration:run": "npm run typeorm:cli -- migration:run",
+    "migration:revert": "npm run typeorm:cli -- migration:revert"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "amqplib": "^0.6.0",
+    "pg": "^8.3.0",
+    "typeorm": "^0.2.25"
+  },
+  "devDependencies": {
+    "@types/amqplib": "^0.5.13",
+    "nodemon": "1.17.3",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.5.2"
+  }
+}

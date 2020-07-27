@@ -1,0 +1,21 @@
+{
+  "name": "consumer",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start:dev": "ts-node ./src/index.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/nodemailer": "^6.4.0",
+    "amqplib": "^0.3.2",
+    "nodemailer": "^4.6.2"
+  },
+  "devDependencies": {
+    "@types/amqplib": "^0.5.13",
+    "nodemon": "1.17.3",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.5.2"
+  }
+}

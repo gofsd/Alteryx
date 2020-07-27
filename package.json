@@ -1,9 +1,8 @@
 {
-  "name": "rabbitmq-node-tutorial",
+  "name": "App",
   "version": "1.0.0",
-  "description": "RabbitMQ amqp.node tutorial ",
-  "dependencies": {
-    "amqplib": "^0.3.2",
-    "nodemailer": "^4.6.2"
+  "description": "Deploy",
+  "scripts": {
+    "start:dev": "docker-compose up"
   }
 }

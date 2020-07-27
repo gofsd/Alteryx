@@ -1,17 +1,32 @@
-#!/usr/bin/env node
+import * as broker from './broker'
+import * as process from 'process'
+const env = process.env;
 
-let amqp = require('amqplib/callback_api');
-let smtp = require('./smtp');
+broker.start({ env });
 
-amqp.connect('amqp://localhost', function(err, conn) {
+
+
+/*
+amqp.connect('amqp://rabbitmq', function(err, conn) {
   conn.createChannel(function(err, ch) {
     var q = 'hello';
 
     ch.assertQueue(q, {durable: false});
     console.log(" [*] Waiting for messages from queue %s. To exit press CTRL+C", q);
     ch.consume(q, function(msg) {
+      console.log(msg, 'from consumer')
+      //@ts-ignore
       msg = JSON.parse(msg.content.toString());
-      smtp.sendMail({
+
+    }, {noAck: true});
+  });
+});
+*/
+
+
+
+/**
+ *       smtp.sendMail({
         from: 'madi.nickname@ukr.net', // sender address
         to: msg.email, // list of receivers
         subject: msg.subject, // Subject line
@@ -23,6 +38,4 @@ amqp.connect('amqp://localhost', function(err, conn) {
            console.log(info);
       });
       console.log("\n [x] Received email: %s, subject: %s, body: %s \n", msg.email, msg.subject, msg.body);
-    }, {noAck: true});
-  });
-});
+ */
