@@ -9,6 +9,8 @@ export async function start(params: { conf: any, env: any }) {
   try{
     const connection = await createConnection(conf);
     const emailTaskRepository = connection.getRepository(EmailTask);
+    const connect = await amqp.connect(env.AMQP_HOST);
+    const channel = await connect.createChannel()
     const interval = setInterval(async () => {
         console.log(fromTime, toTime, 'setInterval')
         if(fromTime === 0){
@@ -24,8 +26,20 @@ export async function start(params: { conf: any, env: any }) {
         .select("*")
         .where("timestamp >= :from and timestamp < :to order by timestamp asc", { from: fromTime, to: toTime })
         .getRawMany()
-        const connect = await amqp.connect(env.AMQP_HOST);
-        const channel = await connect.createChannel()
+        const emailTask = new EmailTask();
+
+
+        emailTask.message = { type: "changePassword", params: {
+          email: "madi.nickname@gmail.com",
+          body: {
+            title: "some title"
+          },
+          subject: "subject"
+          }
+        }
+        emailTask.timestamp = Date.now() + 20 * 999;
+        emailTaskRepository.save(emailTask)
+
         var q = env.TASKS_QUEUE;
         channel.assertQueue(q, {durable: false});
         for(let i = 0; result.length > i; i++) {

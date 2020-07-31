@@ -10,6 +10,7 @@ services:
 
     volumes:
       - ./producer:/usr/src/app
+      - /usr/src/app/node_modules
     networks:
       - app-network
 
@@ -26,14 +27,18 @@ services:
       AMQP_HOST: ${AMQP_HOST}
       POLLING_INTERVAL: ${POLLING_INTERVAL}
       TASKS_QUEUE: ${TASKS_QUEUE}
+    command: ["./wait-for-it.sh", "rabbitmq:15672", "--", "nodemon"]
+
 
   consumer:
     build:
       context: ./consumer
       dockerfile: Dockerfile
     working_dir: /usr/src/app
+    restart: always
     volumes:
       - ./consumer:/usr/src/app
+      - /usr/src/app/node_modules
     networks:
       - app-network
     links:
@@ -41,14 +46,18 @@ services:
     depends_on:
       - rabbitmq
       - db
+      - producer
     environment:
       AMQP_HOST: ${AMQP_HOST}
       TASKS_QUEUE: ${TASKS_QUEUE}
       ADMIN_EMAIL: ${ADMIN_EMAIL}
       SMTP_PASSWORD: ${SMTP_PASSWORD}
+    command: ["./wait-for-it.sh", "rabbitmq:15672", "--", "nodemon"]
 
   rabbitmq:
-    image: "rabbitmq:3-management"
+    build:
+        context: ./rabbitmq
+        dockerfile: Dockerfile
     ports:
       - "5672:5672"
       - "15672:15672"
@@ -56,8 +65,6 @@ services:
       - 'rabbitmq_data:/data'
     networks:
       - app-network
-    depends_on: 
-      - db
 
   db:
     image: postgres:11.2

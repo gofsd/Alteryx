@@ -9,14 +9,11 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 RUN npm install -g nodemon
+RUN npm install -g ts-node
+RUN npm install -g typescript@3.7.5
 RUN npm install
 # Если вы создаете сборку для продакшн
 # RUN npm ci --only=production
 
 # копируем исходный код
 COPY . .
-
-VOLUME [ "/usr/src/app" ]
-
-
-CMD [ "nodemon" ]

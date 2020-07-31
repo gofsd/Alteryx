@@ -4,9 +4,5 @@
   "description": "Deploy",
   "scripts": {
     "start:dev": "docker-compose up"
-  },
-  "dependencies": {
-    "nodemon": "^2.0.4",
-    "ts-node": "^8.10.2"
   }
 }
