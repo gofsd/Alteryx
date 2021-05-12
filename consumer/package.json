@@ -10,7 +10,7 @@
   "dependencies": {
     "@types/nodemailer": "^6.4.0",
     "amqplib": "^0.3.2",
-    "nodemailer": "^4.6.2"
+    "nodemailer": "^6.4.16"
   },
   "devDependencies": {
     "@types/amqplib": "^0.5.13",
